@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './componets/navbar';
-import Counters from './componets/cart';
+import Cart from './componets/cart';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
 
   state = {  
-    counters: [
+    items: [
         {id:1, value: 4},
         {id:2, value: 0},
         {id:3, value: 0},
@@ -15,36 +15,37 @@ class App extends Component {
     ]
 }
 
-handleIncrement = counter => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = {...counter};
-    counters[index].value++;
-    this.setState({counters})
+handleIncrement = item => {
+  console.log("nfjjknjkfbn", item);
+    const items = [...this.state.items];
+    const index = items.indexOf(item);
+    items[index] = {...item};
+    items[index].value++;
+    this.setState({items})
 }
 
-handleDelete = counterId => {
-    const counters= this.state.counters.filter(c => c.id !==counterId);
-    this.setState({ counters })
+handleDelete = itemId => {
+    const items= this.state.items.filter(c => c.id !==itemId);
+    this.setState({ items })
 }
 
 handleReset = () => {
-    const counters =  this.state.counters.map(c => {
+    const items =  this.state.items.map(c => {
         c.value = 0;
         return c;
     });
-    this.setState({counters})
+    this.setState({items})
 }
 
 
   render() {
     return (
       <Router>
-      <NavBar totlaCounters={this.state.counters.filter(c => c.value > 0 ).length} />
+      <NavBar totlaCounters={this.state.items.filter(c => c.value > 0 ).length} />
       <main className="container">
         <Switch>
 
-        <Route exact path="/cart" render={(props) => <Counters onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} counters={this.state.counters}/>} />
+        <Route exact path="/cart" render={(props) => <Cart onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} items={this.state.items}/>} />
         </Switch>
         
       </main>
