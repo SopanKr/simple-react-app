@@ -38,7 +38,7 @@ class ProductDetail extends Component {
 
   </div>
 
-  
+  <button onClick={() => this.props.onAddToCart(this.state.product)} className="btn btn-primary">Add To Cart</button>
 
 </div>
         </React.Fragment>);

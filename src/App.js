@@ -8,7 +8,7 @@ import ProductDetail from './componets/productDetail';
 class App extends Component {
 
   state = {  
-    items: []
+    items: new Array(0)
 }
 
 handleIncrement = item => {
@@ -32,6 +32,13 @@ handleReset = () => {
     this.setState({items})
 }
 
+handleAddToCart = item => {
+  item.value = 1;
+  const items = [...this.state.items] 
+  items.push(item)
+  this.setState({items});
+} 
+
   render() {
     return (
       <Router>
@@ -41,7 +48,7 @@ handleReset = () => {
         <Route exact path="/" render={(props) => <ProductPage />} />
         <Route exact path="/product/:id" render={(props) => {
           const id = props.match.params.id;
-          return <ProductDetail  id={id}/>}} />
+          return <ProductDetail  id={id} onAddToCart={this.handleAddToCart} />}} />
         <Route exact path="/cart" render={(props) => <Cart onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} items={this.state.items}/>} />
         </Switch>
         
