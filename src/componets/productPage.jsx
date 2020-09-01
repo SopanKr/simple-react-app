@@ -6,7 +6,7 @@ class ProductsPage extends Component {
     render() { 
         return ( 
             <div className="flex-container">
-                {this.props.items.map(item => <ProductComponent key={item.id} item={item}/>)}
+                {this.props.products.map(product => <ProductComponent key={product.id} product={product}/>)}
             </div>
          );
     }

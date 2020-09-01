@@ -9,7 +9,8 @@ import axios from 'axios';
 class App extends Component {
 
   state = {  
-    items: []
+    items: [],
+    products: []
 }
 
 handleIncrement = item => {
@@ -37,7 +38,7 @@ componentDidMount(){
   axios.post('http://localhost:3000/product/list', {filter: {}})
   .then(res =>  {
     let newData = res.data.list.map(item => item = {...item, value: 0})
-    this.setState({items: newData})  
+    this.setState({products: newData})  
     console.log(newData)
   })
   .catch(json => console.log(json))
@@ -50,7 +51,7 @@ componentDidMount(){
       <NavBar totlaCounters={this.state.items.filter(c => c.value > 0 ).length} />
       <main className="container">
         <Switch>
-        <Route exact path="/" render={(props) => <ProductPage items={this.state.items}/>} />
+        <Route exact path="/" render={(props) => <ProductPage products={this.state.products}/>} />
         <Route exact path="/cart" render={(props) => <Cart onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} items={this.state.items}/>} />
         </Switch>
         
