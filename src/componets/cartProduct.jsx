@@ -19,12 +19,12 @@ class CartProduct extends Component {
 
     getbadgeClasses() {
         let classes = "badge m-2 badge-";
-        classes += this.props.item.value === 0 ? "warning" : "primary";
+        classes += this.props.item.qty === 0 ? "warning" : "primary";
         return classes;
     }
     formatCount() {
-        const { value: count } = this.props.item;
-        return count === 0 ? "Zero" : count;
+        const { qty } = this.props.item;
+        return qty === 0 ? "Zero" : qty;
     }
 }
  

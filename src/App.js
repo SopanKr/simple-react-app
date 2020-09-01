@@ -8,14 +8,14 @@ import ProductDetail from './componets/productDetail';
 class App extends Component {
 
   state = {  
-    items: new Array(0)
+    items: []
 }
 
 handleIncrement = item => {
     const items = [...this.state.items];
     const index = items.indexOf(item);
     items[index] = {...item};
-    items[index].value++;
+    items[index].qty++;
     this.setState({items})
 }
 
@@ -26,14 +26,14 @@ handleDelete = itemId => {
 
 handleReset = () => {
     const items =  this.state.items.map(c => {
-        c.value = 0;
+        c.qty = 0;
         return c;
     });
     this.setState({items})
 }
 
 handleAddToCart = item => {
-  item.value = 1;
+  item.qty = 1;
   const items = [...this.state.items] 
   items.push(item)
   this.setState({items});
@@ -42,7 +42,7 @@ handleAddToCart = item => {
   render() {
     return (
       <Router>
-      <NavBar totlaCounters={this.state.items.filter(c => c.value > 0 ).length} />
+      <NavBar totlaCounters={this.state.items.filter(c => c.qty > 0 ).length} />
       <main className="container">
         <Switch>
         <Route exact path="/" render={(props) => <ProductPage />} />

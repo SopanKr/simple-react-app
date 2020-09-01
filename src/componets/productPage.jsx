@@ -49,8 +49,7 @@ class ProductsPage extends Component {
     reciveData = pageNumber => {
         axios.post('http://localhost:3000/product/list', {page: pageNumber, filter: {}})
         .then(res =>  {
-          let newData = res.data.list.map(item => item = {...item, value: 0});
-          this.setState({products: newData, pageCount: Math.ceil((res.data.count+1)/10)});
+          this.setState({products: res.data.list, pageCount: Math.ceil((res.data.count+1)/10)});
         })
         .catch(json => console.log(json))
     }
