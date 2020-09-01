@@ -39,7 +39,6 @@ class ProductsPage extends Component {
     }
 
     handlePageClick = (e) => {
-        console.log(e.selected+1);
         const selectedPage = e.selected;
         this.reciveData(e.selected+1);
         this.setState({

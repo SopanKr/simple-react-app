@@ -4,8 +4,7 @@ import NavBar from './componets/navbar';
 import Cart from './componets/cart';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProductPage from './componets/productPage';
-import axios from 'axios';
-
+import ProductDetail from './componets/productDetail';
 class App extends Component {
 
   state = {  
@@ -40,6 +39,9 @@ handleReset = () => {
       <main className="container">
         <Switch>
         <Route exact path="/" render={(props) => <ProductPage />} />
+        <Route exact path="/product/:id" render={(props) => {
+          const id = props.match.params.id;
+          return <ProductDetail  id={id}/>}} />
         <Route exact path="/cart" render={(props) => <Cart onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} items={this.state.items}/>} />
         </Switch>
         
