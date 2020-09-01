@@ -3,20 +3,16 @@ import './App.css';
 import NavBar from './componets/navbar';
 import Cart from './componets/cart';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ProductPage from './componets/productPage';
+import axios from 'axios';
 
 class App extends Component {
 
   state = {  
-    items: [
-        {id:1, value: 4},
-        {id:2, value: 0},
-        {id:3, value: 0},
-        {id:4, value: 0},
-    ]
+    items: []
 }
 
 handleIncrement = item => {
-  console.log("nfjjknjkfbn", item);
     const items = [...this.state.items];
     const index = items.indexOf(item);
     items[index] = {...item};
@@ -37,6 +33,16 @@ handleReset = () => {
     this.setState({items})
 }
 
+componentDidMount(){
+  axios.post('http://localhost:3000/product/list', {filter: {}})
+  .then(res =>  {
+    let newData = res.data.list.map(item => item = {...item, value: 0})
+    this.setState({items: newData})  
+    console.log(newData)
+  })
+  .catch(json => console.log(json))
+}
+
 
   render() {
     return (
@@ -44,7 +50,7 @@ handleReset = () => {
       <NavBar totlaCounters={this.state.items.filter(c => c.value > 0 ).length} />
       <main className="container">
         <Switch>
-
+        <Route exact path="/" render={(props) => <ProductPage items={this.state.items}/>} />
         <Route exact path="/cart" render={(props) => <Cart onReset={this.handleReset} onIncrement={this.handleIncrement} onDelete={this.handleDelete} items={this.state.items}/>} />
         </Switch>
         
